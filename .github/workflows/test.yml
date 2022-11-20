@@ -10,10 +10,9 @@ jobs:
 
     # .NET Code Analysis runs on windows-latest.
     # ubuntu-latest and macos-latest supporting coming soon
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
-    
     - uses: actions/checkout@v2
     
     - uses: actions/setup-dotnet@v1
