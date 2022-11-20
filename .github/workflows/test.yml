@@ -27,8 +27,7 @@ jobs:
       id: code-analysis
       with:
         build-breaking: false
-        style: minimum
-        all-categories: none
+        all-categories: all
         
     - name: Upload analysis results
       uses: actions/upload-artifact@v2
