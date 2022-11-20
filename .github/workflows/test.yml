@@ -1,12 +1,45 @@
-name: Build and Test
+name: Code Analysis, build and test
 
 on: 
   pull_request:
     branches: [main]
 
 jobs:
-  build:
+  analysis:
+    name: .NET Code Analysis runner
 
+    # .NET Code Analysis runs on windows-latest.
+    # ubuntu-latest and macos-latest supporting coming soon
+    runs-on: windows-latest
+
+    steps:
+    
+    - uses: actions/checkout@v2
+    
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+        
+    - name: Run NuGet restore
+      run: dotnet restore
+      
+    - name: Run .NET Code Analysis
+      uses: dotnet/code-analysis@main
+      id: code-analysis
+      with:
+        build-breaking: false
+        style: minimum
+        all-categories: none
+        
+    - name: Upload analysis results
+      uses: actions/upload-artifact@v2
+      with:
+        name: analysis_results.sarif
+        path: ${{ steps.code-analysis.outputs.sarifFile }}
+
+  build_and_test:
+    name: Build and test
+    needs: analysis
     runs-on: ubuntu-latest
     strategy:
       matrix:
