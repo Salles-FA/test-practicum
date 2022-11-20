@@ -18,6 +18,8 @@ categories:
     label: 'type: dependencies'
   - title: 'Refactoring'
     label: 'type: refactoring'
+  - title: 'CI/CD'
+    label: 'type: cicd'
 
 version-resolver:
   major:
@@ -34,6 +36,7 @@ version-resolver:
       - 'type: dependencies'
       - 'type: security'
       - 'type: refactoring'
+      - 'type: cicd'
   default: patch
 
 exclude-labels:
