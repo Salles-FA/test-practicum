@@ -56,7 +56,7 @@ namespace Application
 
             foreach (var dish in dishes)
             {
-                returnValue = returnValue + string.Format(",{0}{1}", dish.DishName, GetMultiple(dish.Count));
+                returnValue += string.Format(",{0}{1}", dish.DishName, GetMultiple(dish.Count));
             }
 
             if (returnValue.StartsWith(","))
