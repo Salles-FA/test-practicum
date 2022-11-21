@@ -11,7 +11,7 @@ namespace Application
         {
             _dishManager = dishManager;
         }
-        
+
         public string TakeOrder(string unparsedOrder)
         {
             try
