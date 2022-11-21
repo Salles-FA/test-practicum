@@ -50,7 +50,7 @@ namespace Application
             return returnValue;
         }
 
-        private string FormatOutput(List<Dish> dishes)
+        private static string FormatOutput(List<Dish> dishes)
         {
             var returnValue = "";
 

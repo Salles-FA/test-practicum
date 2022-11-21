@@ -30,7 +30,7 @@ namespace Application
         /// </summary>
         /// <param name="order">int, represents a dishtype</param>
         /// <param name="returnValue">a list of dishes, - get appended to or changed </param>
-        private void AddOrderToList(int order, List<Dish> returnValue)
+        private static void AddOrderToList(int order, List<Dish> returnValue)
         {
             string orderName = GetOrderName(order);
             var existingOrder = returnValue.SingleOrDefault(x => x.DishName == orderName);
