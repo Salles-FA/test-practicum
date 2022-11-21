@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Application
 {
@@ -32,19 +34,26 @@ namespace Application
         {
             var parsedOrder = new Order
             {
-                DishesId = new List<int>()
+                DishIds = new List<int>()
             };
 
-            var orderItems = unparsedOrder.Split(',');
+            string[] orderItems = unparsedOrder.Split(',');
+            if (orderItems.Count() <= 1)
+            {
+                throw new ApplicationException("Order needs to be in the format: meal name, dish 1, dish 2, etc...");
+            }
+            parsedOrder.MealName = Regex.Replace(orderItems[0].ToLower(), @"\s", "");
+            orderItems = orderItems.Skip(1).ToArray();
+
             foreach (var orderItem in orderItems)
             {
                 if (int.TryParse(orderItem, out int parsedOrderId))
                 {
-                    parsedOrder.DishesId.Add(parsedOrderId);
+                    parsedOrder.DishIds.Add(parsedOrderId);
                 }
                 else
                 {
-                    throw new ApplicationException("Order needs to be comma separated list of numbers");
+                    throw new ApplicationException("Order dishes need to be comma separated list of numbers");
                 }
             }
             return parsedOrder;

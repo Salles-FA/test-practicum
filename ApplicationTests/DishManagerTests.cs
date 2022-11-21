@@ -30,7 +30,8 @@ namespace ApplicationTests
         {
             var order = new Order
             {
-                DishesId = new List<int>
+                MealName = "evening",
+                DishIds = new List<int>
                 {
                     1
                 }
@@ -42,15 +43,16 @@ namespace ApplicationTests
             Assert.AreEqual(1, actual.First().Count);
         }
 
-        [TestCase(1, "steak")]
-        [TestCase(2, "potato")]
-        [TestCase(3, "wine")]
-        [TestCase(4, "cake")]
-        public void ListWithOneReturnsOneDish(int input, string expected)
+        [TestCase("evening", 1, "steak")]
+        [TestCase("evening", 2, "potato")]
+        [TestCase("evening", 3, "wine")]
+        [TestCase("evening", 4, "cake")]
+        public void ListWithOneReturnsOneDish(string mealNameInput, int input, string expected)
         {
             var order = new Order
             {
-                DishesId = new List<int>
+                MealName = mealNameInput,
+                DishIds = new List<int>
                 {
                     input
                 }

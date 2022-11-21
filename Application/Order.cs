@@ -6,8 +6,9 @@ namespace Application
     {
         public Order()
         {
-            DishesId = new List<int>();
+            DishIds = new List<int>();
         }
-        public List<int> DishesId { get; set; }
+        public string MealName;
+        public List<int> DishIds { get; set; }
     }
 }
