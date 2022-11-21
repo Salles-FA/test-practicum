@@ -28,7 +28,7 @@ namespace Application
         }
 
 
-        private Order ParseOrder(string unparsedOrder)
+        private static Order ParseOrder(string unparsedOrder)
         {
             var returnValue = new Order
             {
@@ -67,7 +67,7 @@ namespace Application
             return returnValue;
         }
 
-        private object GetMultiple(int count)
+        private static object GetMultiple(int count)
         {
             if (count > 1)
             {

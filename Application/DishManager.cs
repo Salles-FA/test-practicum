@@ -51,7 +51,7 @@ namespace Application
             }
         }
 
-        private string GetOrderName(int order)
+        private static string GetOrderName(int order)
         {
             return order switch
             {
@@ -64,7 +64,7 @@ namespace Application
         }
 
 
-        private bool IsMultipleAllowed(int order)
+        private static bool IsMultipleAllowed(int order)
         {
             return order switch
             {
