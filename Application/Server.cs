@@ -16,10 +16,10 @@ namespace Application
         {
             try
             {
-                Order order = ParseOrder(unparsedOrder);
-                List<Dish> dishes = _dishManager.GetDishes(order);
-                string returnValue = FormatOutput(dishes);
-                return returnValue;
+                Order parsedOrder = ParseOrder(unparsedOrder);
+                List<Dish> dishes = _dishManager.GetDishes(parsedOrder);
+                string formatedDishes = FormatOutput(dishes);
+                return formatedDishes;
             }
             catch (ApplicationException)
             {
@@ -30,24 +30,24 @@ namespace Application
 
         private static Order ParseOrder(string unparsedOrder)
         {
-            var returnValue = new Order
+            var parsedOrder = new Order
             {
-                Dishes = new List<int>()
+                DishesId = new List<int>()
             };
 
             var orderItems = unparsedOrder.Split(',');
             foreach (var orderItem in orderItems)
             {
-                if (int.TryParse(orderItem, out int parsedOrder))
+                if (int.TryParse(orderItem, out int parsedOrderId))
                 {
-                    returnValue.Dishes.Add(parsedOrder);
+                    parsedOrder.DishesId.Add(parsedOrderId);
                 }
                 else
                 {
                     throw new ApplicationException("Order needs to be comma separated list of numbers");
                 }
             }
-            return returnValue;
+            return parsedOrder;
         }
 
         private static string FormatOutput(List<Dish> dishes)
@@ -56,7 +56,7 @@ namespace Application
 
             foreach (var dish in dishes)
             {
-                returnValue += string.Format(",{0}{1}", dish.DishName, GetMultiple(dish.Count));
+                returnValue += string.Format(",{0}{1}", dish.Name, GetMultiple(dish.Count));
             }
 
             if (returnValue.StartsWith(","))

@@ -30,7 +30,7 @@ namespace ApplicationTests
         {
             var order = new Order
             {
-                Dishes = new List<int>
+                DishesId = new List<int>
                 {
                     1
                 }
@@ -38,7 +38,7 @@ namespace ApplicationTests
 
             var actual = _sut.GetDishes(order);
             Assert.AreEqual(1, actual.Count);
-            Assert.AreEqual("steak", actual.First().DishName);
+            Assert.AreEqual("steak", actual.First().Name);
             Assert.AreEqual(1, actual.First().Count);
         }
 
@@ -50,7 +50,7 @@ namespace ApplicationTests
         {
             var order = new Order
             {
-                Dishes = new List<int>
+                DishesId = new List<int>
                 {
                     input
                 }
@@ -58,7 +58,7 @@ namespace ApplicationTests
 
             var actual = _sut.GetDishes(order);
             Assert.AreEqual(1, actual.Count);
-            Assert.AreEqual(expected, actual.First().DishName);
+            Assert.AreEqual(expected, actual.First().Name);
             Assert.AreEqual(1, actual.First().Count);
         }
     }
