@@ -29,7 +29,8 @@ jobs:
         build-breaking: true
         all-categories: all
         
-    - name: Upload analysis results
+    - name: Upload analysis results if there are errors
+      if: failure()
       uses: actions/upload-artifact@v2
       with:
         name: analysis_results.sarif
