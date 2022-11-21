@@ -31,14 +31,16 @@ Solution must:
 2. Add ability to have different dishes in the morning and at night (See sample input/output below)
 3. You can have multiple orders of coffee in the morning (but still no more than 1 each of the other Dish Types)
 4. Dessert is not available as a morning Dish Type
-5. Preserve existing requirements:
-    - You must enter a comma delimited list of Dish Types with at least one selection
-    - The output must print Dish Names in the following order: entrée, side, drink, dessert
-    - If invalid selection is encountered, then print &quot;error&quot;
-    - Ignore whitespace in the input
-    - Each Dish Type is optional (i.e. can have zero if not entered in the input)
-    - You can have multiple orders of potatoes (but still no more than 1 each of the other Dish Types)
-    - If more than one Dish Type is entered, output it once, followed by &quot;(xN)&quot;, e.g. &quot;potato(x2)&quot;
+5. &check; ~~Preserve existing requirements:~~
+    - &check; ~~You must enter a comma delimited list of Dish Types with at least one selection~~
+    - &check; ~~The output must print Dish Names in the following order: entrée, side, drink, dessert~~
+    - &check; ~~If invalid selection is encountered, then print &quot;error&quot;~~
+    - &check; ~~Ignore whitespace in the input~~
+    - &check; ~~Each Dish Type is optional (i.e. can have zero if not entered in the input)~~
+    - &check; ~~You can have multiple orders of potatoes (but still no more than 1 each of the other Dish Types)~~
+    - &check; ~~If more than one Dish Type is entered, output it once, followed by &quot;(xN)&quot;, e.g. &quot;potato(x2)&quot;~~
+
+&check; Covered by tests
 
 **Dishes for Morning**
 

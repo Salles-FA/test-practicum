@@ -82,5 +82,79 @@ namespace ApplicationTests
             var actual = _sut.TakeOrder(order);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase("1", "steak")]
+        [TestCase("2,2", "potato(x2)")]
+        [TestCase("1,2,3,4", "steak,potato,wine,cake")]
+        [TestCase("1,2,2,4", "steak,potato(x2),cake")]
+        public void CanEnterAListOfDishTypesWithAtLeastOneSelection(string input, string expected)
+        {
+            var actual = _sut.TakeOrder(input);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("3,4,2,1", "steak,potato,wine,cake")]
+        [TestCase("1,2,4,2", "steak,potato(x2),cake")]
+        public void CanPrintDishNamesInTheFollowingOrderEntreeSideDrinkDessert(string input, string expected)
+        {
+            var actual = _sut.TakeOrder(input);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("one", "error")]
+        [TestCase("1,2,3,5", "error")]
+        [TestCase("1,1,2,3", "error")]
+        [TestCase("1,2,3,3", "error")]
+        [TestCase("1,2,3,4,4", "error")]
+        public void CanPrintErrorIfInvalidSelectionIsEncountered(string input, string expected)
+        {
+            var actual = _sut.TakeOrder(input);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("1 ", "steak")]
+        [TestCase(" 2, 2", "potato(x2)")]
+        [TestCase(" 1 ,2 ,3   ,4", "steak,potato,wine,cake")]
+        [TestCase("1    ,2      ,2,   4", "steak,potato(x2),cake")]
+        [TestCase("     3,       4,2     ,1", "steak,potato,wine,cake")]
+        [TestCase("        1, 2, 4,     2       ", "steak,potato(x2),cake")]
+        public void CanIgnoreWhitespacesInTheInput(string input, string expected)
+        {
+            var actual = _sut.TakeOrder(input);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestCase("", "error")]
+        [TestCase("1", "steak")]
+        [TestCase("2", "potato")]
+        [TestCase("2,2", "potato(x2)")]
+        [TestCase("3", "wine")]
+        [TestCase("4", "cake")]
+        public void CanEnterEachDishTypeAsOptional(string input, string expected)
+        {
+            var actual = _sut.TakeOrder(input);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("1,1", "error")]
+        [TestCase("2,2", "potato(x2)")]
+        [TestCase("3,3", "error")]
+        [TestCase("4,4", "error")]
+        [TestCase("1,2,4,2,3,2,2,2", "steak,potato(x5),wine,cake")]
+        public void CanHaveMultipleOrdersOfPotatoesOnly(string input, string expected)
+        {
+            var actual = _sut.TakeOrder(input);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("2,2", "potato(x2)")]
+        [TestCase("2,2,2", "potato(x3)")]
+        [TestCase("2,2,2,2", "potato(x4)")]
+        public void CanOutputMultipleOrdersJustOnceFollowedByQuantityInParentesis(string input, string expected)
+        {
+            var actual = _sut.TakeOrder(input);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
