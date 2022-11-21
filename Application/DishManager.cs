@@ -41,7 +41,8 @@ namespace Application
                     DishName = orderName,
                     Count = 1
                 });
-            } else if (IsMultipleAllowed(order))
+            }
+            else if (IsMultipleAllowed(order))
             {
                 existingOrder.Count++;
             }
