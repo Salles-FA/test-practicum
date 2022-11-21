@@ -53,33 +53,24 @@ namespace Application
 
         private string GetOrderName(int order)
         {
-            switch (order)
+            return order switch
             {
-                case 1:
-                    return "steak";
-                case 2:
-                    return "potato";
-                case 3:
-                    return "wine";
-                case 4:
-                    return "cake";
-                default:
-                    throw new ApplicationException("Order does not exist");
-
-            }
+                1 => "steak",
+                2 => "potato",
+                3 => "wine",
+                4 => "cake",
+                _ => throw new ApplicationException("Order does not exist"),
+            };
         }
 
 
         private bool IsMultipleAllowed(int order)
         {
-            switch (order)
+            return order switch
             {
-                case 2:
-                    return true;
-                default:
-                    return false;
-
-            }
+                2 => true,
+                _ => false,
+            };
         }
     }
 }
