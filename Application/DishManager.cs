@@ -30,7 +30,7 @@ namespace Application
         /// </summary>
         /// <param name="order">int, represents a dishtype</param>
         /// <param name="returnValue">a list of dishes, - get appended to or changed </param>
-        private void AddOrderToList(int order, List<Dish> returnValue)
+        private static void AddOrderToList(int order, List<Dish> returnValue)
         {
             string orderName = GetOrderName(order);
             var existingOrder = returnValue.SingleOrDefault(x => x.DishName == orderName);
@@ -51,35 +51,26 @@ namespace Application
             }
         }
 
-        private string GetOrderName(int order)
+        private static string GetOrderName(int order)
         {
-            switch (order)
+            return order switch
             {
-                case 1:
-                    return "steak";
-                case 2:
-                    return "potato";
-                case 3:
-                    return "wine";
-                case 4:
-                    return "cake";
-                default:
-                    throw new ApplicationException("Order does not exist");
-
-            }
+                1 => "steak",
+                2 => "potato",
+                3 => "wine",
+                4 => "cake",
+                _ => throw new ApplicationException("Order does not exist"),
+            };
         }
 
 
-        private bool IsMultipleAllowed(int order)
+        private static bool IsMultipleAllowed(int order)
         {
-            switch (order)
+            return order switch
             {
-                case 2:
-                    return true;
-                default:
-                    return false;
-
-            }
+                2 => true,
+                _ => false,
+            };
         }
     }
 }

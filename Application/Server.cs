@@ -28,7 +28,7 @@ namespace Application
         }
 
 
-        private Order ParseOrder(string unparsedOrder)
+        private static Order ParseOrder(string unparsedOrder)
         {
             var returnValue = new Order
             {
@@ -50,13 +50,13 @@ namespace Application
             return returnValue;
         }
 
-        private string FormatOutput(List<Dish> dishes)
+        private static string FormatOutput(List<Dish> dishes)
         {
             var returnValue = "";
 
             foreach (var dish in dishes)
             {
-                returnValue = returnValue + string.Format(",{0}{1}", dish.DishName, GetMultiple(dish.Count));
+                returnValue += string.Format(",{0}{1}", dish.DishName, GetMultiple(dish.Count));
             }
 
             if (returnValue.StartsWith(","))
@@ -67,7 +67,7 @@ namespace Application
             return returnValue;
         }
 
-        private object GetMultiple(int count)
+        private static object GetMultiple(int count)
         {
             if (count > 1)
             {

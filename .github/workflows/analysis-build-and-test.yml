@@ -1,0 +1,60 @@
+name: Code Analysis, build and test
+
+on: 
+  pull_request:
+    branches: [main]
+
+jobs:
+  analysis:
+    name: .NET Code Analysis runner
+
+    # .NET Code Analysis runs on windows-latest.
+    # ubuntu-latest and macos-latest supporting coming soon
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+        
+    - name: Run NuGet restore
+      run: dotnet restore
+      
+    - name: Run .NET Code Analysis
+      uses: dotnet/code-analysis@main
+      id: code-analysis
+      with:
+        build-breaking: true
+        all-categories: all
+        
+    - name: Upload analysis results if success or failure
+      if: success() || failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: analysis_results.sarif
+        path: ${{ steps.code-analysis.outputs.sarifFile }}
+
+  build_and_test:
+    name: Build and test
+    needs: analysis
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['3.1.x', '5.0.x', '6.0.x', '7.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
