@@ -42,10 +42,10 @@ namespace ApplicationTests
             Assert.AreEqual(1, actual.First().Count);
         }
 
-        [TestCase(1,"steak")]
-        [TestCase(2,"potato")]
-        [TestCase(3,"wine")]
-        [TestCase(4,"cake")]
+        [TestCase(1, "steak")]
+        [TestCase(2, "potato")]
+        [TestCase(3, "wine")]
+        [TestCase(4, "cake")]
         public void ListWithOneReturnsOneDish(int input, string expected)
         {
             var order = new Order
