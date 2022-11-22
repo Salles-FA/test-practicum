@@ -56,11 +56,15 @@ namespace Application
         /// If the dish does not exist throw error
         /// </summary>
         /// <param name="dishKey">string, represents the dish key</param>
+        /// <returns>Return the dish of the given key</returns>
         private static Dish GetDishByKey(string dishKey)
         {
             // This data may be loaded from various sources, such as database, API, message-broker, etc...
             Dictionary<string, Dish> existingDishes = new Dictionary<string, Dish>()
             {
+                { "morning1", new Dish { Id = 1, MealName = "morning", Name = "egg", IsMultipleAllowed = false } },
+                { "morning2", new Dish { Id = 2, MealName = "morning", Name = "toast", IsMultipleAllowed = false } },
+                { "morning3", new Dish { Id = 3, MealName = "morning", Name = "coffee", IsMultipleAllowed = true } },
                 { "evening1", new Dish { Id = 1, MealName = "evening", Name = "steak", IsMultipleAllowed = false } },
                 { "evening2", new Dish { Id = 2, MealName = "evening", Name = "potato", IsMultipleAllowed = true } },
                 { "evening3", new Dish { Id = 3, MealName = "evening", Name = "wine", IsMultipleAllowed = false } },

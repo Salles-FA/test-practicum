@@ -158,5 +158,20 @@ namespace ApplicationTests
             var actual = _sut.TakeOrder(input);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase(" morning, 1, 2, 3 ", "egg,toast,coffee")]
+        [TestCase(" Morning,3,3,3 ", "coffee(x3)")]
+        [TestCase(" morning ,1,3,2,3 ", "egg,toast,coffee(x2)")]
+        [TestCase(" morning, 1, 2, 2 ", "error")]
+        [TestCase(" morning, 1, 2, 4 ", "error")]
+        [TestCase(" evening,1, 2, 3, 4 ", "steak,potato,wine,cake")]
+        [TestCase(" Evening,1, 2, 2, 4 ", "steak,potato(x2),cake")]
+        [TestCase(" evening,1, 2, 3, 5 ", "error")]
+        [TestCase(" evening,1, 3, 2, 3 ", "error")]
+        public void CanRunTheReadmeSampleInputAndOutput(string input, string expected)
+        {
+            var actual = _sut.TakeOrder(input);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
