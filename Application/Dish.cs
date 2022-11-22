@@ -5,7 +5,10 @@
     /// </summary>
     public class Dish
     {
-        public string DishName { get; set; }
-        public int Count { get; set; }
+        public int Id { get; set; }
+        public string MealName { get; set; }
+        public string Name { get; set; }
+        public int Count { get; set; } = 0;
+        public bool IsMultipleAllowed { get; set; }
     }
 }

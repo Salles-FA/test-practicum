@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Application
 {
@@ -16,10 +18,10 @@ namespace Application
         {
             try
             {
-                Order order = ParseOrder(unparsedOrder);
-                List<Dish> dishes = _dishManager.GetDishes(order);
-                string returnValue = FormatOutput(dishes);
-                return returnValue;
+                Order parsedOrder = ParseOrder(unparsedOrder);
+                List<Dish> dishes = _dishManager.GetDishes(parsedOrder);
+                string formatedDishes = FormatOutput(dishes);
+                return formatedDishes;
             }
             catch (ApplicationException)
             {
@@ -30,24 +32,31 @@ namespace Application
 
         private static Order ParseOrder(string unparsedOrder)
         {
-            var returnValue = new Order
+            var parsedOrder = new Order
             {
-                Dishes = new List<int>()
+                DishIds = new List<int>()
             };
 
-            var orderItems = unparsedOrder.Split(',');
+            string[] orderItems = unparsedOrder.Split(',');
+            if (orderItems.Count() <= 1)
+            {
+                throw new ApplicationException("Order needs to be in the format: meal name, dish 1, dish 2, etc...");
+            }
+            parsedOrder.MealName = Regex.Replace(orderItems[0].ToLower(), @"\s", "");
+            orderItems = orderItems.Skip(1).ToArray();
+
             foreach (var orderItem in orderItems)
             {
-                if (int.TryParse(orderItem, out int parsedOrder))
+                if (int.TryParse(orderItem, out int parsedOrderId))
                 {
-                    returnValue.Dishes.Add(parsedOrder);
+                    parsedOrder.DishIds.Add(parsedOrderId);
                 }
                 else
                 {
-                    throw new ApplicationException("Order needs to be comma separated list of numbers");
+                    throw new ApplicationException("Order dishes need to be comma separated list of numbers");
                 }
             }
-            return returnValue;
+            return parsedOrder;
         }
 
         private static string FormatOutput(List<Dish> dishes)
@@ -56,7 +65,7 @@ namespace Application
 
             foreach (var dish in dishes)
             {
-                returnValue += string.Format(",{0}{1}", dish.DishName, GetMultiple(dish.Count));
+                returnValue += string.Format(",{0}{1}", dish.Name, GetMultiple(dish.Count));
             }
 
             if (returnValue.StartsWith(","))
