@@ -46,7 +46,7 @@ jobs:
 
       - name: Upload analysis results if success or failure
         if: success() || failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: analysis_results.sarif
           path: ${{ steps.code-analysis.outputs.sarifFile }}
